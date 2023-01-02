@@ -33,6 +33,7 @@ public class Main {
         server.setHandler(handlers);
 
         server.start();
+        System.out.println("Сервер запущен!");
         server.join();
     }
 }
