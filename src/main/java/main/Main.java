@@ -2,6 +2,8 @@ package main;
 
 import accounts.AccountService;
 import accounts.UserProfile;
+import newservlets.SignInServlet;
+import newservlets.SignUpServlet;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.HandlerList;
@@ -23,6 +25,9 @@ public class Main {
         context.addServlet(new ServletHolder(new UsersServlet(accountService)), "/api/v1/users");
         context.addServlet(new ServletHolder(new SessionsServlet(accountService)), "/api/v1/sessions");
 
+        context.addServlet(new ServletHolder(new SignUpServlet(accountService)), "/signup");
+        context.addServlet(new ServletHolder(new SignInServlet(accountService)), "/signin");
+
         ResourceHandler resource_handler = new ResourceHandler();
         resource_handler.setResourceBase("public_html");
 
@@ -33,7 +38,7 @@ public class Main {
         server.setHandler(handlers);
 
         server.start();
-        System.out.println("Сервер запущен!");
+        System.out.println("Server started");
         server.join();
     }
 }
